@@ -55,8 +55,8 @@ class MarkupHTMLPurifier extends WireData implements Module {
 	 */
 	public function init() {
 		require_once(dirname(__FILE__) . '/htmlpurifier/HTMLPurifier.standalone.php'); 
-		$settings = HTMLPurifier_Config::createDefault();
-		$settings->set('Cache.SerializerPath', $this->getCachePath());
+		$this->settings = HTMLPurifier_Config::createDefault();
+		$this->settings->set('Cache.SerializerPath', $this->getCachePath());
 	}
 
 	/**
