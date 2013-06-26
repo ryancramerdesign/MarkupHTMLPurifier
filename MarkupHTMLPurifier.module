@@ -31,7 +31,7 @@ class MarkupHTMLPurifier extends WireData implements Module {
 		return array(
 			'title' => 'HTML Purifier', 
 			'summary' => 'Front-end to the HTML Purifier library.', 
-			'version' => 451, 
+			'version' => 102, 
 			'singular' => false, 
 			'autoload' => false, 
 			);
@@ -50,12 +50,20 @@ class MarkupHTMLPurifier extends WireData implements Module {
 	protected $purifier = null; 
 
 	/**
+	 * Generate HTML Purifier settings object
+	 *
+	 */
+	public function __construct() {
+		require_once(dirname(__FILE__) . '/htmlpurifier/HTMLPurifier.standalone.php'); 
+		$this->settings = HTMLPurifier_Config::createDefault();
+		$this->settings->autoFinalize = false;
+	}
+
+	/**
 	 * Initialize the module and create default settings
 	 *
 	 */
 	public function init() {
-		require_once(dirname(__FILE__) . '/htmlpurifier/HTMLPurifier.standalone.php'); 
-		$this->settings = HTMLPurifier_Config::createDefault();
 		$this->settings->set('Cache.SerializerPath', $this->getCachePath());
 	}
 
